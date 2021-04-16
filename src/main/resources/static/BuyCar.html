@@ -1,0 +1,398 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0083)https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/BuyCar.html -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link type="text/css" rel="stylesheet" href="css/style.css" />
+<!--[if IE 6]>
+    <script src="js/iepng.js" type="text/javascript"></script>
+        <script type="text/javascript">
+           EvPNG.fix('div, ul, img, li, input, a'); 
+        </script>
+    <![endif]-->
+<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="js/menu.js"></script>
+<script type="text/javascript" src="js/axios.js"></script>
+    <script type="text/javascript" src="js/vue.js"></script>
+<script type="text/javascript" src="js/n_nav.js"></script>
+<script type="text/javascript" src="js/self.js"></script>
+<script type="text/javascript" src="js/num.js">
+    	var jq = jQuery.noConflict();
+    </script>
+
+<script type="text/javascript" src="js/shade.js"></script>
+<title>杰辰购物</title>
+</head>
+<body>
+	<!--Begin Header Begin-->
+<div id="yetou">
+	<yetou></yetou>
+</div>
+<script type="text/javascript">
+	new Vue({
+		el : "#yetou"
+	})
+</script>
+		
+	<div class="top">
+		<div class="logo">
+			<a
+				href="https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/Index.html"><img
+				src="images/logo.png"></a>
+		</div>
+		<div class="search">
+			<form>
+				<input type="text" value="" class="s_ipt"> <input
+					type="submit" value="搜索" class="s_btn">
+			</form>
+			<span class="fl"><a
+				href="https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/BuyCar.html#">咖啡</a><a
+				href="https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/BuyCar.html#">iphone
+					6S</a><a
+				href="https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/BuyCar.html#">新鲜美食</a><a
+				href="https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/BuyCar.html#">蛋糕</a><a
+				href="https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/BuyCar.html#">日用品</a><a
+				href="https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/BuyCar.html#">连衣裙</a></span>
+		</div>
+		<div id="cart">
+			<cart></cart>
+		</div>
+		<script type="text/javascript">
+			new Vue({
+				el : "#cart"
+			})
+		</script>
+	</div>
+	<!--End Header End-->
+	<!--Begin Menu Begin-->
+	<div id="category">
+		<category></category>
+	</div>
+	<script type="text/javascript">
+		new Vue({
+			el : "#category"
+		})
+	</script>
+	<!--End Menu End-->
+	<div class="i_bg">
+		<div class="content mar_20">
+			<img src="images/img1.jpg" />
+		</div>
+
+		<!--Begin 第一步：查看购物车 Begin -->
+		<div class="content mar_20">
+			<table border="0" class="car_tab"
+				style="width: 1200px; margin-bottom: 50px;" cellspacing="0"
+				cellpadding="0">
+				<tbody>
+					<tr>
+						<td class="car_th" width="490">商品名称</td>
+						<td class="car_th" width="150">购买数量</td>
+						<td class="car_th" width="130">单价</td>
+						<td class="car_th" width="150">操作</td>
+					</tr>
+					<tr v-for="c in carts">
+						<td>
+							<div class="c_s_img">
+								<img :src="c.good.img" width="73" height="73">
+							</div> {{c.good.name}}
+						</td>
+						<td align="center">
+							<div class="c_num">
+								<input type="button" value="" @click="reduce(c.good.id,c.num);" class="car_btn_1" /> 
+								<input type="text" v-model="c.num" name="" class="car_ipt" /> 
+								<input type="button" value="" @click="add(c.good.id,c.num);"  class="car_btn_2" />
+							</div>
+						</td>
+						<td align="center" style="color: #ff4e00;">￥{{c.good.price}}</td>
+						<td align="center"><a
+							@click="deleteById(c.id)">删除</a>&nbsp;
+							&nbsp;<a
+							href="https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/BuyCar.html#">加入收藏</a></td>
+					</tr>
+					
+					<tr height="70">
+						<td colspan="6"
+							style="font-family: &amp; amp; amp; #39; Microsoft YaHei&amp;amp; amp; #39;; border-bottom: 0;">
+							<label class="r_rad"><input type="button" name="clear"
+								@click="clearAll()" value="清空购物车" /></label> <span
+							class="fr">商品总价：<b
+								style="font-size: 22px; color: #ff4e00;">￥{{total}}</b></span>
+						</td>
+					</tr>
+					<tr valign="top" height="150">
+						<td colspan="6" align="right"><a
+							href="index.html"><img
+								src="images/buy1.gif"></a>&nbsp; &nbsp; <a
+							href="#" @click="order()"><img
+								src="images/buy2.gif"></a></td>
+					</tr>
+				</tbody>
+			</table>car_tab
+			<script type="text/javascript">
+	        	var car_tab=new Vue({
+	        		el:".car_tab",
+	        		data:{
+	        			carts:[],
+	        		},
+	        		created(){
+	        			axios.post("cart/findCart").then(res=>{
+	    					this.carts=res.data;
+	    					if(this.carts.length==0){
+		        				alert("您的购物车还没有商品，请先挑选商品吧！");
+		        				location.href="index.html";
+		        			}
+	    				});
+	        		},
+	        		methods:{
+	        			add(id,num){
+	        				for(c of this.carts){
+	        					if(c.good.id==id){
+	        						c.num=num+1
+	        					}
+	        				}
+	        			},
+	        			reduce(id,num){
+	        				for(c of this.carts){
+	        					if(c.good.id==id && num>1){
+	        						c.num=num-1
+	        					}
+	        				}
+	        			},
+	        			deleteById(id){
+	        				axios.post("cart/deleteById?id="+id).then(res=>{
+	        					if(res.data==1){
+	        						alert("刪除成功");
+	        						location.reload();
+	        					}
+	        				});
+	        			},
+	        			clearAll(){
+	        				axios.post("cart/clear").then(res=>{
+	        					if(res.data!=0){
+	        						alert("清空购物车成功");
+	        						location.reload();
+	        					}
+	        				});
+	        			},
+	        			order(){
+	        				var params = new URLSearchParams();
+	        				var i=0;
+	        				for(c of this.carts){
+	        					params.append("items["+i+"].gid",c.good.id);
+	        					params.append("items["+i+"].num",c.num);
+	        					params.append("items["+i+"].good.price",c.good.price);
+	        					i++;
+	        				}
+	        				axios.post("order/add",params).then(res=>{
+	        					if(res.data.code==1){
+	        						location.href="BuyCar2.html#"+res.data.data;
+	        					}else{
+	        						alert(res.data.msg);
+	        					}
+	        				});
+	        			}
+	        		},
+	        		computed:{
+	        			total(){
+	        				var total=0;
+	        				for(c of this.carts){
+	        					total+=c.good.price*c.num;
+	        				};
+	        				return total;
+	        			}
+	        		}
+	        	});
+	        </script>
+		</div>
+		<!--End 第一步：查看购物车 End-->
+
+		<!--Begin Footer Begin -->
+		<div class="b_btm_bg bg_color">
+			<div class="b_btm">
+				<table border="0"
+					style="width: 210px; height: 62px; float: left; margin-left: 75px; margin-top: 30px;"
+					cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr>
+							<td width="72"><img src="images/b1.png" width="62"
+								height="62"></td>
+							<td><h2>正品保障</h2>正品行货 放心购买</td>
+						</tr>
+					</tbody>
+				</table>
+				<table border="0"
+					style="width: 210px; height: 62px; float: left; margin-left: 75px; margin-top: 30px;"
+					cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr>
+							<td width="72"><img src="images/b2.png" width="62"
+								height="62"></td>
+							<td><h2>满38包邮</h2>满38包邮 免运费</td>
+						</tr>
+					</tbody>
+				</table>
+				<table border="0"
+					style="width: 210px; height: 62px; float: left; margin-left: 75px; margin-top: 30px;"
+					cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr>
+							<td width="72"><img src="images/b3.png" width="62"
+								height="62"></td>
+							<td><h2>天天低价</h2>天天低价 畅选无忧</td>
+						</tr>
+					</tbody>
+				</table>
+				<table border="0"
+					style="width: 210px; height: 62px; float: left; margin-left: 75px; margin-top: 30px;"
+					cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr>
+							<td width="72"><img src="images/b4.png" width="62"
+								height="62"></td>
+							<td><h2>准时送达</h2>收货时间由你做主</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="b_nav">
+			<dl>
+				<dt>
+					<a
+						href="https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/BuyCar.html#">新手上路</a>
+				</dt>
+				<dd>
+					<a
+						href="https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/BuyCar.html#">售后流程</a>
+				</dd>
+				<dd>
+					<a
+						href="https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/BuyCar.html#">购物流程</a>
+				</dd>
+				<dd>
+					<a
+						href="https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/BuyCar.html#">订购方式</a>
+				</dd>
+				<dd>
+					<a
+						href="https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/BuyCar.html#">隐私声明</a>
+				</dd>
+				<dd>
+					<a
+						href="https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/BuyCar.html#">推荐分享说明</a>
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					<a
+						href="https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/BuyCar.html#">配送与支付</a>
+				</dt>
+				<dd>
+					<a
+						href="https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/BuyCar.html#">货到付款区域</a>
+				</dd>
+				<dd>
+					<a
+						href="https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/BuyCar.html#">配送支付查询</a>
+				</dd>
+				<dd>
+					<a
+						href="https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/BuyCar.html#">支付方式说明</a>
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					<a
+						href="https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/BuyCar.html#">会员中心</a>
+				</dt>
+				<dd>
+					<a
+						href="https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/BuyCar.html#">资金管理</a>
+				</dd>
+				<dd>
+					<a
+						href="https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/BuyCar.html#">我的收藏</a>
+				</dd>
+				<dd>
+					<a
+						href="https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/BuyCar.html#">我的订单</a>
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					<a
+						href="https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/BuyCar.html#">服务保证</a>
+				</dt>
+				<dd>
+					<a
+						href="https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/BuyCar.html#">退换货原则</a>
+				</dd>
+				<dd>
+					<a
+						href="https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/BuyCar.html#">售后服务保证</a>
+				</dd>
+				<dd>
+					<a
+						href="https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/BuyCar.html#">产品质量保证</a>
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					<a
+						href="https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/BuyCar.html#">联系我们</a>
+				</dt>
+				<dd>
+					<a
+						href="https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/BuyCar.html#">网站故障报告</a>
+				</dd>
+				<dd>
+					<a
+						href="https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/BuyCar.html#">购物咨询</a>
+				</dd>
+				<dd>
+					<a
+						href="https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/BuyCar.html#">投诉与建议</a>
+				</dd>
+			</dl>
+			<div class="b_tel_bg">
+				<a
+					href="https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/BuyCar.html#"
+					class="b_sh1">新浪微博</a> <a
+					href="https://www.17sucai.com/preview/216556/2016-02-18/%E5%B0%A4%E6%B4%AAWeb/BuyCar.html#"
+					class="b_sh2">腾讯微博</a>
+				<p>
+					服务热线：<br> <span>400-123-4567</span>
+				</p>
+			</div>
+			<div class="b_er">
+				<div class="b_er_c">
+					<img src="images/er.gif" width="118" height="118">
+				</div>
+				<img src="images/ss.png">
+			</div>
+		</div>
+		<div class="btmbg">
+			<div class="btm">
+				备案/许可证编号：蜀ICP备12009302号-1-www.dingguagua.com Copyright © 2015-2018
+				杰辰购物商城网 All Rights Reserved. 复制必究 , Technical Support: Dgg Group <br>
+					<img src="images/b_1.gif" width="98" height="33"><img
+						src="images/b_2.gif" width="98" height="33"><img
+							src="images/b_3.gif" width="98" height="33"><img
+								src="images/b_4.gif" width="98" height="33"><img
+									src="images/b_5.gif" width="98" height="33"><img
+										src="images/b_6.gif" width="98" height="33">
+			</div>
+		</div>
+		<!--End Footer End -->
+	</div>
+
+
+
+
+	<!--[if IE 6]>
+<script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+server:  
+    port: 80
+    servlet: 
+       session.timeout: 60000
+       contextpath: /jcshopping
+    undertow:  
+        io-threads: 16  
+        worker-threads: 256  
+        buffer-size: 1024  
+        buffers-per-region: 1024  
+        direct-buffers: true 
+
+spring:
+   datasource:
+      url: jdbc:mysql://127.0.0.1:3306/jcshopping?serverTimezone=UTC
+      username: root
+      password: a
+      driverClassName: com.mysql.jdbc.Driver
+      
+   mail: 
+      
+      host: smtp.qq.com
+      username: 1226229612@qq.com
+      password: tjgwqxlrfayxihja
+      default-encoding: UTF-8
+   mvc:
+      view:
+         prefix: /WEB-INF/alipay/
+         suffix: .jsp
+
+mail:
+   from:
+      addr: 1226229612@qq.com
+
+logging:
+   level:
+      root: info
+      org.springwork: info
+      io.swagger.models.parameters.AbstractSerializableParameter: error
+      com.yc: info
+   file: /tmp/yc.log
+

@@ -1,0 +1,278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link type="text/css" rel="stylesheet" href="css/style.css" />
+    <!--[if IE 6]>
+    <script src="js/iepng.js" type="text/javascript"></script>
+        <script type="text/javascript">
+           EvPNG.fix('div, ul, img, li, input, a'); 
+        </script>
+    <![endif]-->
+    
+    <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="js/menu.js"></script>    
+    <script type="text/javascript" src="js/self.js"></script>        
+	<script type="text/javascript" src="js/lrscroll_1.js"></script>
+    <script type="text/javascript" src="js/axios.js"></script>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <script type="text/javascript" src="js/self.js"></script>
+	<script type="text/javascript" src="js/n_nav.js"></script>
+    
+<title>杰辰购物</title>
+</head>
+<body>  
+<!--Begin Header Begin-->
+<div id="yetou">
+	<yetou></yetou>
+</div>
+<script type="text/javascript">
+	new Vue({
+		el : "#yetou"
+	})
+</script>
+<div class="top">
+    <div class="logo"><a href="Index.html"><img src="images/logo.png" /></a></div>
+    <div class="search">
+    	<form>
+        	<input type="text" value="" class="s_ipt" />
+            <input type="submit" value="搜索" class="s_btn" />
+        </form>                      
+        <span class="fl"><a href="#">咖啡</a><a href="#">iphone 6S</a><a href="#">新鲜美食</a><a href="#">蛋糕</a><a href="#">日用品</a><a href="#">连衣裙</a></span>
+    </div>
+    <div id="cart">
+		<cart></cart>
+	</div>
+	<script type="text/javascript">
+		new Vue({
+			el : "#cart"
+		})
+	</script>
+</div>
+<!--End Header End--> 
+<!--Begin Menu Begin-->
+<div id="category">
+	<category></category>
+</div>
+<script type="text/javascript">
+	new Vue({
+		el : "#category"
+	})
+</script>
+<!--End Menu End--> 
+<div class="i_bg">
+	<div class="postion" v-if="list[0]">
+    	<span class="fl">全部 > {{list[0].category.name}} > {{list[0].category.classes}} > </span>
+    </div>
+    
+    <!--End 筛选条件 End-->
+    
+    <div class="content mar_20">
+    	<div class="l_history">
+        	<div class="his_t">
+            	<span class="fl">浏览历史</span>
+                <span class="fr"><a href="#">清空</a></span>
+            </div>
+        	<ul>
+            	<li>
+                    <div class="img"><a href="#"><img src="images/his_1.jpg" width="185" height="162" /></a></div>
+                	<div class="name"><a href="#">Dior/迪奥香水2件套装</a></div>
+                    <div class="price">
+                    	<font>￥<span>368.00</span></font> &nbsp; 18R
+                    </div>
+                </li>
+                <li>
+                    <div class="img"><a href="#"><img src="images/his_2.jpg" width="185" height="162" /></a></div>
+                	<div class="name"><a href="#">Dior/迪奥香水2件套装</a></div>
+                    <div class="price">
+                    	<font>￥<span>768.00</span></font> &nbsp; 18R
+                    </div>
+                </li>
+                <li>
+                    <div class="img"><a href="#"><img src="images/his_3.jpg" width="185" height="162" /></a></div>
+                	<div class="name"><a href="#">Dior/迪奥香水2件套装</a></div>
+                    <div class="price">
+                    	<font>￥<span>680.00</span></font> &nbsp; 18R
+                    </div>
+                </li>
+                <li>
+                    <div class="img"><a href="#"><img src="images/his_4.jpg" width="185" height="162" /></a></div>
+                	<div class="name"><a href="#">Dior/迪奥香水2件套装</a></div>
+                    <div class="price">
+                    	<font>￥<span>368.00</span></font> &nbsp; 18R
+                    </div>
+                </li>
+                <li>
+                    <div class="img"><a href="#"><img src="images/his_5.jpg" width="185" height="162" /></a></div>
+                	<div class="name"><a href="#">Dior/迪奥香水2件套装</a></div>
+                    <div class="price">
+                    	<font>￥<span>368.00</span></font> &nbsp; 18R
+                    </div>
+                </li>
+        	</ul>
+        </div>
+        <div class="l_list">
+            <div class="list_c">
+            	
+                <ul class="cate_list">
+                	<li v-for="g in page.list">
+                    	<div class="img"><a :href="'product.html#'+g.id"><img :src="g.img" width="210" height="185" /></a></div>
+                        <div class="price">
+                            <font>￥<span>{{g.price}}</span></font> 
+                        </div>
+                        <div class="name"><a :href="'product.html#'+g.id">{{g.name}}</a></div>
+                        <div class="carbg">
+                        	<a href="#" class="ss">收藏</a>
+                            <a href="#" @click="addCart(g.id)" class="j_car">加入购物车</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="pages" v-if="list[0]">
+                	<a :href="'CategoryList.html?'+list[0].category.id+'&page='+(page.page-1)" class="p_pre">上一页</a><a href="#" class="cur">{{page.page}}</a><a :href="'CategoryList.html?'+list[0].category.id+'&page='+(page.page+1)" class="p_pre">下一页</a>
+                </div>
+        </div>
+    </div>
+    
+    <!--Begin Footer Begin -->
+    <div class="b_btm_bg bg_color">
+        <div class="b_btm">
+            <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="72"><img src="images/b1.png" width="62" height="62" /></td>
+                <td><h2>正品保障</h2>正品行货  放心购买</td>
+              </tr>
+            </table>
+			<table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="72"><img src="images/b2.png" width="62" height="62" /></td>
+                <td><h2>满38包邮</h2>满38包邮 免运费</td>
+              </tr>
+            </table>
+            <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="72"><img src="images/b3.png" width="62" height="62" /></td>
+                <td><h2>天天低价</h2>天天低价 畅选无忧</td>
+              </tr>
+            </table>
+            <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="72"><img src="images/b4.png" width="62" height="62" /></td>
+                <td><h2>准时送达</h2>收货时间由你做主</td>
+              </tr>
+            </table>
+        </div>
+    </div>
+    <div class="b_nav">
+    	<dl>                                                                                            
+        	<dt><a href="#">新手上路</a></dt>
+            <dd><a href="#">售后流程</a></dd>
+            <dd><a href="#">购物流程</a></dd>
+            <dd><a href="#">订购方式</a></dd>
+            <dd><a href="#">隐私声明</a></dd>
+            <dd><a href="#">推荐分享说明</a></dd>
+        </dl>
+        <dl>
+        	<dt><a href="#">配送与支付</a></dt>
+            <dd><a href="#">货到付款区域</a></dd>
+            <dd><a href="#">配送支付查询</a></dd>
+            <dd><a href="#">支付方式说明</a></dd>
+        </dl>
+        <dl>
+        	<dt><a href="#">会员中心</a></dt>
+            <dd><a href="#">资金管理</a></dd>
+            <dd><a href="#">我的收藏</a></dd>
+            <dd><a href="#">我的订单</a></dd>
+        </dl>
+        <dl>
+        	<dt><a href="#">服务保证</a></dt>
+            <dd><a href="#">退换货原则</a></dd>
+            <dd><a href="#">售后服务保证</a></dd>
+            <dd><a href="#">产品质量保证</a></dd>
+        </dl>
+        <dl>
+        	<dt><a href="#">联系我们</a></dt>
+            <dd><a href="#">网站故障报告</a></dd>
+            <dd><a href="#">购物咨询</a></dd>
+            <dd><a href="#">投诉与建议</a></dd>
+        </dl>
+        <div class="b_tel_bg">
+        	<a href="#" class="b_sh1">新浪微博</a>            
+        	<a href="#" class="b_sh2">腾讯微博</a>
+            <p>
+            服务热线：<br />
+            <span>400-123-4567</span>
+            </p>
+        </div>
+        <div class="b_er">
+            <div class="b_er_c"><img src="images/er.gif" width="118" height="118" /></div>
+            <img src="images/ss.png" />
+        </div>
+    </div>    
+    <div class="btmbg">
+		<div class="btm">
+        	备案/许可证编号：蜀ICP备12009302号-1-www.dingguagua.com   Copyright © 2015-2018 杰辰购物商城网 All Rights Reserved. 复制必究 , Technical Support: Dgg Group <br />
+            <img src="images/b_1.gif" width="98" height="33" /><img src="images/b_2.gif" width="98" height="33" /><img src="images/b_3.gif" width="98" height="33" /><img src="images/b_4.gif" width="98" height="33" /><img src="images/b_5.gif" width="98" height="33" /><img src="images/b_6.gif" width="98" height="33" />
+        </div>    	
+    </div>
+    <!--End Footer End -->    
+</div>
+<script type="text/javascript">
+	let i_bg=new Vue({
+		el: ".i_bg",
+		data:{
+			page : {},
+			list:[],
+			plist:1,
+			active:1,
+		},
+		created(){
+			var classId=location.search.substring(1);
+			axios.post("good/findById?id="+classId).then(res=>{
+				this.page=res.data;
+				var p = this.page.page;
+				var ps = this.page.pages;
+				this.list=this.page.list;
+				this.active = p;
+				this.plist=ps;
+				if(p>3){
+					this.plist = [];
+					if(ps-p-2<0){
+						for(var i = 0;i<5;i++){
+							this.plist.unshift(ps-i);
+						}
+					}else{
+						for(var i = 0;i<5;i++){
+							this.plist.push(p-2+i);
+						}	
+					}														
+				}else{
+					this.plist = [1,2,3,4,5];
+				}
+			});
+		},
+		methods:{
+			addCart(id){
+				var params=new URLSearchParams();
+				params.append("gid",id);
+				params.append("num",1);
+				axios.post("cart/addCart",params).then(res=>{
+					if(res.data.code==1){
+						alert("加入购物车成功");
+					}else{
+						alert(res.data.msg);
+					}
+					
+				});
+				
+			}
+		}
+	});
+</script>
+</body>
+
+
+<!--[if IE 6]>
+<script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+</html>
